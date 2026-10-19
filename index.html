@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#7c3aed">
-
-    <title>Pick & Answer</title>
+    <title>Pick & Answer V2.0</title>
 
     <style>
         * {
@@ -25,12 +24,12 @@
         .container {
             width: 100%;
             max-width: 600px;
-            margin: 40px auto;
+            margin: 35px auto;
             text-align: center;
         }
 
         .logo {
-            font-size: 36px;
+            font-size: 40px;
             margin-bottom: 10px;
         }
 
@@ -42,17 +41,18 @@
         .subtitle {
             color: #cbd5e1;
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .card {
             background: #211b35;
-            padding: 25px;
+            padding: 24px;
             border-radius: 20px;
             border: 1px solid #40345c;
+            margin-bottom: 20px;
         }
 
-        input, button {
+        input, button, select {
             width: 100%;
             padding: 14px;
             margin-top: 12px;
@@ -60,7 +60,7 @@
             font-size: 16px;
         }
 
-        input {
+        input, select {
             border: 1px solid #574775;
             background: #151023;
             color: white;
@@ -74,12 +74,27 @@
             cursor: pointer;
         }
 
-        button:hover {
-            background: #7c3aed;
+        button:active {
+            transform: scale(0.98);
         }
 
         .secondary {
             background: #37304a;
+        }
+
+        .question {
+            font-size: 22px;
+            line-height: 1.5;
+            margin: 25px 0;
+        }
+
+        .category {
+            display: inline-block;
+            background: #3b2d59;
+            color: #ddd6fe;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
         }
 
         .footer {
@@ -87,14 +102,16 @@
             color: #9ca3af;
             font-size: 13px;
         }
+
+        [hidden] {
+            display: none !important;
+        }
     </style>
 </head>
 
 <body>
-
     <main class="container">
         <div class="logo">💜🎮</div>
-
         <h1>Pick & Answer</h1>
 
         <p class="subtitle">
@@ -102,7 +119,7 @@
             Discover something new about each other.
         </p>
 
-        <section class="card">
+        <section class="card" id="setupCard">
             <h2>Let's Play!</h2>
 
             <input
@@ -112,19 +129,32 @@
                 maxlength="25"
             >
 
-            <button onclick="createRoom()">
-                Create a Room
-            </button>
+            <label for="categorySelect">Choose a category</label>
 
-            <input
-                type="text"
-                id="roomCode"
-                placeholder="Enter room code"
-                maxlength="8"
-            >
+            <select id="categorySelect">
+                <option value="All">All Questions</option>
+                <option value="Love & Relationships">Love & Relationships</option>
+                <option value="Flirty">Flirty</option>
+                <option value="Deep & Emotional">Deep & Emotional</option>
+                <option value="Funny">Funny</option>
+            </select>
 
-            <button class="secondary" onclick="joinRoom()">
-                Join a Room
+            <button onclick="startGame()">Start Game</button>
+        </section>
+
+        <section class="card" id="gameCard" hidden>
+            <span class="category" id="questionCategory"></span>
+
+            <p id="turnIndicator"></p>
+
+            <div class="question" id="questionText">
+                Your question will appear here.
+            </div>
+
+            <button onclick="skipQuestion()">Next Question</button>
+
+            <button class="secondary" onclick="showSetup()">
+                Back to Setup
             </button>
         </section>
 
@@ -133,43 +163,33 @@
         </p>
     </main>
 
+    <script src="questions.js"></script>
+    <script src="game.js"></script>
+
     <script>
-        function createRoom() {
-            const name = document
-                .getElementById("playerName")
-                .value.trim();
+        function startGame() {
+            const name = document.getElementById("playerName").value.trim();
 
             if (!name) {
                 alert("Please enter your name first.");
                 return;
             }
 
-            alert(
-                "Welcome, " + name +
-                "! Room creation will be added in the next stage."
-            );
+            currentCategory =
+                document.getElementById("categorySelect").value;
+
+            playerTurn = 1;
+            usedQuestions = [];
+
+            document.getElementById("setupCard").hidden = true;
+
+            nextQuestion();
         }
 
-        function joinRoom() {
-            const name = document
-                .getElementById("playerName")
-                .value.trim();
-
-            const code = document
-                .getElementById("roomCode")
-                .value.trim();
-
-            if (!name || !code) {
-                alert("Enter your name and room code.");
-                return;
-            }
-
-            alert(
-                "Welcome, " + name +
-                "! Room joining will be added in the multiplayer stage."
-            );
+        function showSetup() {
+            document.getElementById("gameCard").hidden = true;
+            document.getElementById("setupCard").hidden = false;
         }
     </script>
-
 </body>
-          </html>
+</html>
