@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#7c3aed">
+
+    <title>Pick & Answer</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #100d1c;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #c4b5fd;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #211b35;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #40345c;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        input {
+            border: 1px solid #574775;
+            background: #151023;
+            color: white;
+        }
+
+        button {
+            border: none;
+            background: #8b5cf6;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #7c3aed;
+        }
+
+        .secondary {
+            background: #37304a;
+        }
+
+        .footer {
+            margin-top: 25px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+        <div class="logo">💜🎮</div>
+
+        <h1>Pick & Answer</h1>
+
+        <p class="subtitle">
+            Pick a question. Share your answer.
+            Discover something new about each other.
+        </p>
+
+        <section class="card">
+            <h2>Let's Play!</h2>
+
+            <input
+                type="text"
+                id="playerName"
+                placeholder="Enter your name"
+                maxlength="25"
+            >
+
+            <button onclick="createRoom()">
+                Create a Room
+            </button>
+
+            <input
+                type="text"
+                id="roomCode"
+                placeholder="Enter room code"
+                maxlength="8"
+            >
+
+            <button class="secondary" onclick="joinRoom()">
+                Join a Room
+            </button>
+        </section>
+
+        <p class="footer">
+            Pick & Answer V2.0 · Made for two players 💜
+        </p>
+    </main>
+
+    <script>
+        function createRoom() {
+            const name = document
+                .getElementById("playerName")
+                .value.trim();
+
+            if (!name) {
+                alert("Please enter your name first.");
+                return;
+            }
+
+            alert(
+                "Welcome, " + name +
+                "! Room creation will be added in the next stage."
+            );
+        }
+
+        function joinRoom() {
+            const name = document
+                .getElementById("playerName")
+                .value.trim();
+
+            const code = document
+                .getElementById("roomCode")
+                .value.trim();
+
+            if (!name || !code) {
+                alert("Enter your name and room code.");
+                return;
+            }
+
+            alert(
+                "Welcome, " + name +
+                "! Room joining will be added in the multiplayer stage."
+            );
+        }
+    </script>
+
+</body>
+          </html>
